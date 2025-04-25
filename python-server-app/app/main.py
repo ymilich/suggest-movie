@@ -6,6 +6,11 @@ def create_app():
 
     # Register routes
     app.add_url_rule('/example', view_func=get_example)
+    
+    @app.route('/')
+    def home():
+        return "Welcome to the Python Server App!"
+
 
     return app
 
