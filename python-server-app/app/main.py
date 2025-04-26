@@ -28,7 +28,7 @@ def suggest_movie():
 @app.route('/suggest_dummy', methods=['GET'])
 def suggest_dummy():
     try:
-        response = request.get('https://agent-suggester-service-url/example')
+        response = requests.get('https://agent-suggester-service-url/example')
         response.raise_for_status()
         return response.json()  # Assuming the service returns JSON
     except requests.exceptions.RequestException as e:
