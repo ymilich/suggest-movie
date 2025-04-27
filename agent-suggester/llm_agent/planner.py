@@ -1,5 +1,4 @@
 import openai
-import anthropic
 import os
 from anthropic import Client
 
@@ -15,7 +14,7 @@ def anthropic_request(input_text):
         return "Anthropic API key is not set. Please set the ANTHROPIC_API_KEY environment variable."
 
     try:
-        response = client.completion(
+        response = client.completions(
             prompt=f"{anthropic.HUMAN_PROMPT} {input_text}{anthropic.AI_PROMPT}",
             model="claude-instant-1",  # Use the best free model
             max_tokens_to_sample=100

@@ -1,6 +1,21 @@
 from flask import Flask
 from llm_agent.planner import handle_request, anthropic_test
 from flask import request
+import logging
+import google.cloud.logging
+
+def init_logging():
+    # Initialize the Cloud Logging client
+    logging_client = google.cloud.logging.Client()
+
+    # Set up the Cloud Logging handler
+    logging_client.setup_logging()
+
+    # Now you can use the standard logging module
+    logging.info("This is an informational message.")
+    logging.error("This is an error message.")
+
+init_logging()
 
 app = Flask(__name__)
 
@@ -10,6 +25,7 @@ def home():
 
 @app.route('/example', methods=['GET'])
 def example_route():
+    logging.info("Received request for example route")
     return anthropic_test()
 
 @app.route('/suggest', methods=['POST'])
