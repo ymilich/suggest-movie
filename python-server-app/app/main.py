@@ -3,6 +3,7 @@ from .routes.example_route import get_example
 import requests
 
 app = Flask(__name__)
+url = 'https://suggester-agent-77932636840.us-central1.run.app'
 
 # Register routes
 app.add_url_rule('/example', view_func=get_example)
@@ -17,9 +18,8 @@ def suggest_movie():
     if not data or 'text' not in data:
         return {"error": "Invalid input, 'text' field is required"}, 400
     text = data['text']
-
     try:
-        response = requests.post('https://agent-suggester-service-url/suggest', json={"text": text})
+        response = requests.post(f"{url}/suggest", json={"text": text})
         response.raise_for_status()
         return response.json()  # Assuming the service returns JSON
     except requests.exceptions.RequestException as e:
@@ -28,7 +28,7 @@ def suggest_movie():
 @app.route('/suggest_dummy', methods=['GET'])
 def suggest_dummy():
     try:
-        response = requests.get('https://agent-suggester-service-url/example')
+        response = requests.get(f"{url}/example")
         response.raise_for_status()
         return response.json()  # Assuming the service returns JSON
     except requests.exceptions.RequestException as e:
